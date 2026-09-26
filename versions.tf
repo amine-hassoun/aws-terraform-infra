@@ -16,16 +16,16 @@ terraform {
     }
   }
 
- backend "s3" {
-   bucket         = "amine-hassoun-aws-terraform-infra-state"
-   key            = "aws-terraform-infra/terraform.tfstate"
-   region         = "eu-west-3"
-   dynamodb_table = "terraform-locks"
-   encrypt        = true
+  backend "s3" {
+    bucket         = "amine-hassoun-aws-terraform-infra-state"
+    key            = "aws-terraform-infra/terraform.tfstate"
+    region         = "eu-west-3"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
   }
 }
 
 provider "aws" {
-  region  = "eu-west-3"
+  region = "eu-west-3"
 }
 # CI/CD pipeline verified 2026-09-26

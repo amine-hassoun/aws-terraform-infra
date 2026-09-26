@@ -107,9 +107,9 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
         Resource = "arn:aws:s3:::amine-hassoun-aws-terraform-infra-state"
       },
       {
-        Sid      = "OidcProvider"
-        Effect   = "Allow"
-        Action   = [
+        Sid    = "OidcProvider"
+        Effect = "Allow"
+        Action = [
           "iam:GetOpenIDConnectProvider",
           "iam:CreateOpenIDConnectProvider",
           "iam:DeleteOpenIDConnectProvider",

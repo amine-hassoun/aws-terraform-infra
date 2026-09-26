@@ -117,12 +117,12 @@ resource "aws_cloudwatch_dashboard" "main" {
       {
         type = "metric", x = 12, y = 6, width = 12, height = 6
         properties = {
-          title  = "DynamoDB - Throttled Requests"
-          view   = "timeSeries"
-          region = data.aws_region.current.name
+          title   = "DynamoDB - Throttled Requests"
+          view    = "timeSeries"
+          region  = data.aws_region.current.name
           metrics = [["AWS/DynamoDB", "ThrottledRequests", "TableName", var.dynamodb_table_name]]
-          period = 300
-          stat   = "Sum"
+          period  = 300
+          stat    = "Sum"
         }
       }
     ]

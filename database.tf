@@ -1,4 +1,4 @@
 module "database" {
-  source       = "./modules/database"
-  common_tags  = local.common_tags
+  source      = "./modules/database"
+  common_tags = local.common_tags
 }
