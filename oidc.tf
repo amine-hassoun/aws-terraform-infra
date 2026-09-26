@@ -33,6 +33,10 @@ resource "aws_iam_role" "github_actions_terraform" {
   tags = local.common_tags
 }
 
+# checkov:skip=CKV_AWS_286: PassRole + CreateRole/AttachRolePolicy is required for CI to provision this project's own Lambda execution role; Resource is scoped to role/aws-terraform-infra-*, not *, so it can't escalate outside this project's own roles.
+# checkov:skip=CKV_AWS_289: Same scoped-resource reasoning - permissions management is restricted to this project's IAM roles only.
+# checkov:skip=CKV_AWS_290: ProjectResources' write actions (lambda:*, ec2:Create*) are required to provision this project's own resources; most EC2 actions here don't support resource-level ARNs at all - an AWS platform limitation, not a shortcut.
+# checkov:skip=CKV_AWS_355: Same as above - already scoped narrowly wherever the action type actually supports it (S3, DynamoDB, IAM).
 resource "aws_iam_role_policy" "github_actions_terraform" {
   name = "terraform-management"
   role = aws_iam_role.github_actions_terraform.id

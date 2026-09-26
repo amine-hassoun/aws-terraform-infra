@@ -77,12 +77,12 @@ data "archive_file" "lambda_zip" {
 
 # --- The function itself ---
 resource "aws_lambda_function" "app" {
-  function_name = "aws-terraform-infra-app"
-  role          = aws_iam_role.lambda_execution.arn
-  handler       = "index.handler"
-  runtime       = "nodejs22.x"
-  timeout       = 10
-  memory_size   = 128
+  function_name                  = "aws-terraform-infra-app"
+  role                           = aws_iam_role.lambda_execution.arn
+  handler                        = "index.handler"
+  runtime                        = "nodejs22.x"
+  timeout                        = 10
+  memory_size                    = 128
 
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
