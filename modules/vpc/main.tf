@@ -17,7 +17,7 @@ resource "aws_subnet" "public" {
 
   vpc_id                  = aws_vpc.main.id
   availability_zone       = each.key
-  cidr_block               = each.value
+  cidr_block              = each.value
   map_public_ip_on_launch = true
 
   tags = merge(var.tags, { Name = "aws-terraform-infra-public-${each.key}" })
