@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
       {
         Sid      = "StateLock"
         Effect   = "Allow"
-        Action   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:DescribeTable"]
+        Action   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:Describe*"]
         Resource = "arn:aws:dynamodb:*:*:table/terraform-locks"
       },
       {
@@ -72,7 +72,7 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "ec2:RevokeSecurityGroupEgress", "ec2:RevokeSecurityGroupIngress",
           "ec2:CreateTags", "ec2:DeleteTags",
           "lambda:*",
-          "dynamodb:CreateTable", "dynamodb:DeleteTable", "dynamodb:DescribeTable", "dynamodb:UpdateTable",
+          "dynamodb:CreateTable", "dynamodb:DeleteTable", "dynamodb:Describe*", "dynamodb:UpdateTable",
           "dynamodb:TagResource", "dynamodb:UntagResource", "dynamodb:ListTagsOfResource",
           "sns:*",
           "cloudwatch:PutMetricAlarm", "cloudwatch:DeleteAlarms", "cloudwatch:DescribeAlarms",
@@ -92,6 +92,32 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "iam:PassRole"
         ]
         Resource = "arn:aws:iam::*:role/aws-terraform-infra-*"
+      },
+      {
+        Sid    = "StateBucketConfig"
+        Effect = "Allow"
+        Action = [
+          "s3:Get*",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketVersioning",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutEncryptionConfiguration",
+          "s3:PutBucketTagging"
+        ]
+        Resource = "arn:aws:s3:::amine-hassoun-aws-terraform-infra-state"
+      },
+      {
+        Sid      = "OidcProvider"
+        Effect   = "Allow"
+        Action   = [
+          "iam:GetOpenIDConnectProvider",
+          "iam:CreateOpenIDConnectProvider",
+          "iam:DeleteOpenIDConnectProvider",
+          "iam:UpdateOpenIDConnectProviderThumbprint",
+          "iam:TagOpenIDConnectProvider",
+          "iam:UntagOpenIDConnectProvider"
+        ]
+        Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/token.actions.githubusercontent.com"
       }
     ]
   })
@@ -100,3 +126,5 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
 output "github_actions_role_arn" {
   value = aws_iam_role.github_actions_terraform.arn
 }
+
+data "aws_caller_identity" "current" {}
