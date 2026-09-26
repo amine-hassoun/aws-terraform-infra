@@ -28,3 +28,4 @@ terraform {
 provider "aws" {
   region  = "eu-west-3"
 }
+# CI/CD pipeline verified 2026-09-26
