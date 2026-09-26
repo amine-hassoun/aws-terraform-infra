@@ -33,6 +33,8 @@ jobs:
     needs: guard
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    env:
+      TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -85,6 +87,8 @@ jobs:
     needs: guard
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env: 
+      TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
       - uses: actions/checkout@v4
 
