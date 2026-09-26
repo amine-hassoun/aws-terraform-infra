@@ -4,3 +4,4 @@
 *.tfvars
 *.tfplan
 .terraform.tfstate.lock.info
+modules/compute/lambda.zip
