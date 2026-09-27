@@ -78,7 +78,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         properties = {
           title  = "Lambda - Invocations, Errors, Throttles"
           view   = "timeSeries"
-          region = data.aws_region.current.name
+          region = data.aws_region.current.region
           metrics = [
             ["AWS/Lambda", "Invocations", "FunctionName", var.lambda_function_name],
             ["AWS/Lambda", "Errors", "FunctionName", var.lambda_function_name],
@@ -93,7 +93,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         properties = {
           title  = "Lambda - Duration (avg / p99)"
           view   = "timeSeries"
-          region = data.aws_region.current.name
+          region = data.aws_region.current.region
           metrics = [
             ["AWS/Lambda", "Duration", "FunctionName", var.lambda_function_name, { stat = "Average" }],
             ["AWS/Lambda", "Duration", "FunctionName", var.lambda_function_name, { stat = "p99" }]
@@ -106,7 +106,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         properties = {
           title  = "DynamoDB - Consumed Capacity"
           view   = "timeSeries"
-          region = data.aws_region.current.name
+          region = data.aws_region.current.region
           metrics = [
             ["AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", var.dynamodb_table_name],
             ["AWS/DynamoDB", "ConsumedWriteCapacityUnits", "TableName", var.dynamodb_table_name]
@@ -120,7 +120,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         properties = {
           title   = "DynamoDB - Throttled Requests"
           view    = "timeSeries"
-          region  = data.aws_region.current.name
+          region  = data.aws_region.current.region
           metrics = [["AWS/DynamoDB", "ThrottledRequests", "TableName", var.dynamodb_table_name]]
           period  = 300
           stat    = "Sum"
