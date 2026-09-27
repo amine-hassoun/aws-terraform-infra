@@ -33,6 +33,9 @@ jobs:
     needs: guard
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    concurrency:
+      group: terraform-state
+      cancel-in-progress: false
     env:
       TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
@@ -103,6 +106,9 @@ jobs:
     needs: guard
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    concurrency:
+      group: terraform-state
+      cancel-in-progress: false
     env: 
       TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
