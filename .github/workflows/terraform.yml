@@ -19,7 +19,7 @@ jobs:
     name: Cost-safety guard
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Guard against non-Always-Free resource types
         run: |
           FORBIDDEN='aws_nat_gateway|aws_lb|aws_elb|aws_db_instance|aws_db_cluster|aws_elasticache_cluster|aws_elasticache_replication_group|aws_redshift_cluster|aws_instance|aws_eks_cluster'
@@ -39,7 +39,7 @@ jobs:
     env:
       TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: hashicorp/setup-terraform@v4
         with:
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Run checkov
         uses: bridgecrewio/checkov-action@v12
@@ -112,7 +112,7 @@ jobs:
     env: 
       TF_VAR_alert_email: ${{ secrets.ALERT_EMAIL }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: hashicorp/setup-terraform@v4
         with:
