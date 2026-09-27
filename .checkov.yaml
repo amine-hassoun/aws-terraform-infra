@@ -1,0 +1,17 @@
+skip-check:
+  - CKV_AWS_28   # DynamoDB PITR - deliberately off, reproducible/non-critical data (Section 11.5)
+  - CKV_AWS_119  # DynamoDB/general KMS Customer-Managed CMK - $1/mo flat fee, no security gain for this data
+  - CKV_AWS_173  # Lambda env var CMK - holds only a non-secret table name
+  - CKV_AWS_382  # Lambda SG egress - private subnet has no internet route
+  - CKV_AWS_50   # Lambda X-Ray - would silently fail without a NAT Gateway or paid VPC Interface Endpoint
+  - CKV_AWS_272  # Lambda code signing - enterprise supply-chain control, disproportionate here
+  - CKV_AWS_116  # Lambda DLQ - applies only to async invocations; this Lambda is invoked exclusively via a synchronous Function URL
+  - CKV_AWS_258  # Function URL AuthType NONE - intentional public demo endpoint
+  - CKV_AWS_301  # Lambda publicly accessible - same intentional design
+  - CKV2_AWS_16  # DynamoDB auto scaling - conflicts with the fixed-capacity design under the shared 25/25 pool
+  - CKV2_AWS_11  # VPC flow logs - disproportionate ongoing cost/volume for a single-Lambda demo VPC
+  - CKV2_AWS_62  # S3 event notifications - nothing consumes state-bucket change events
+  - CKV_AWS_18   # S3 access logging - single-user personal bucket, no external access surface
+  - CKV_AWS_144  # S3 cross-region replication - disproportionate DR posture for a personal state file
+  - CKV_AWS_145  # S3 KMS-by-default - SSE-S3 (Step 1) already satisfies encryption-at-rest
+  - CKV_AWS_115  # Lambda reserved concurrency - this account's total Lambda concurrency limit is 10, and AWS reserves all 10 as the account-wide unreserved floor; any reservation, even 1, would violate that floor. Not adjustable without an AWS support request to raise the account limit.

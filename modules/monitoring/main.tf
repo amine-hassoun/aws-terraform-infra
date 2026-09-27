@@ -2,8 +2,9 @@ data "aws_region" "current" {}
 
 # --- SNS topic + email subscription for alarm notifications ---
 resource "aws_sns_topic" "alerts" {
-  name = "aws-terraform-infra-alerts"
-  tags = var.common_tags
+  name              = "aws-terraform-infra-alerts"
+  tags              = var.common_tags
+  kms_master_key_id = "alias/aws/sns"
 }
 
 resource "aws_sns_topic_subscription" "email" {

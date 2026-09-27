@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   availability_zone       = each.key
   cidr_block              = each.value
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = merge(var.tags, { Name = "aws-terraform-infra-public-${each.key}" })
 }
@@ -80,4 +80,10 @@ resource "aws_vpc_endpoint" "dynamodb" {
   route_table_ids   = [aws_route_table.private.id]
 
   tags = merge(var.tags, { Name = "aws-terraform-infra-dynamodb-endpoint" })
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+  # Intentionally empty - nothing uses the default SG; this locks down
+  # AWS's permissive default instead of leaving it unmanaged.
 }
