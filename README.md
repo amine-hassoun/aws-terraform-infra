@@ -9,9 +9,9 @@ Serverless AWS infrastructure, fully automated with Terraform: a public HTTPS AP
 ## Architecture
 
 ```
-                              ┌─────────────────────────────────────────┐
-                              │                Internet                 │
-                              └───────────────────┬───────────────────┬─┘
+                               ┌─────────────────────────────────────────┐
+                               │                Internet                 │
+                               └───────────────────┬──────────────────┬──┘
                                                    │                  │
                                           HTTPS (Function URL)        │ IGW (unused by app;
                                                    │                  │ public subnets kept
