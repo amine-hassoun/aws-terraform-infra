@@ -1,6 +1,6 @@
 # aws-terraform-infra
 
-Serverless AWS infrastructure, fully automated with Terraform: a public HTTPS API backed by Lambda and DynamoDB, deployed through a zero-static-credential CI/CD pipeline, monitored end-to-end, and designed to run at **$0/month** using AWS's Always Free tier only.
+Serverless AWS infrastructure, fully automated with Terraform, a public HTTPS API backed by Lambda and DynamoDB, deployed through a zero-static-credential CI/CD pipeline, monitored end-to-end, and designed to run at **$0/month** using AWS's Always Free tier only.
 
 **Live endpoint:** `https://dz4cbpzyxt5dux7qbyvg474otu0pkyww.lambda-url.eu-west-3.on.aws/`
 
